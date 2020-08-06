@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { NotesService } from "./service";
-import { InMemRepository } from "./repo";
+import { InMemRepository } from "./inmem-repo";
 import { Note } from "./note";
 
 export const notesRouter = express.Router();
