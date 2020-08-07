@@ -7,10 +7,10 @@ interface Writer {
 }
 
 interface Reader {
-  findAll(): Promise<Note[]>;
-  findOne(id: string): Promise<Note>;
-  findByTag(tag: string): Promise<Note[]>;
-  findAllTags(): Promise<string[]>;
+  findAll(userId: string): Promise<Note[]>;
+  findOne(userId: string, id: string): Promise<Note>;
+  findByTag(userId: string, tag: string): Promise<Note[]>;
+  findAllTags(userId: string): Promise<string[]>;
 }
 
 export interface IRepository extends Reader, Writer {}

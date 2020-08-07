@@ -8,23 +8,23 @@ export class NotesService {
     this.repo = repo;
   }
 
-  async findAll(): Promise<Note[]> {
-    return this.repo.findAll();
+  async findAll(userId: string): Promise<Note[]> {
+    return this.repo.findAll(userId);
   }
 
-  async findOne(id: string): Promise<Note> {
-    return this.repo.findOne(id);
+  async findOne(userId: string, id: string): Promise<Note> {
+    return this.repo.findOne(userId, id);
   }
 
-  async findByTag(tag: string): Promise<Note[]> {
-    return this.repo.findByTag(tag);
+  async findByTag(userId: string, tag: string): Promise<Note[]> {
+    return this.repo.findByTag(userId, tag);
   }
 
   async createNote(note: Note): Promise<Note> {
     return this.repo.create(note);
   }
 
-  async findAllTags(): Promise<string[]> {
-    return this.repo.findAllTags();
+  async findAllTags(userId: string): Promise<string[]> {
+    return this.repo.findAllTags(userId);
   }
 }

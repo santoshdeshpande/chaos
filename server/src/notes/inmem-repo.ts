@@ -6,51 +6,56 @@ const notes: Notes = {
     id: 1,
     note: "This is first test note",
     tags: ["software", "default"],
+    userId: "1",
   },
   "2": {
     id: 2,
     note: "This is second test note",
     tags: ["software", "default", "another"],
+    userId: "1",
   },
   "3": {
     id: 3,
     note: "This is third test note",
     tags: ["software", "third", "another"],
+    userId: "1",
   },
   "4": {
     id: 4,
     note: "This is the fourth test note",
     tags: ["hacker", "brother", "hardware", "test"],
+    userId: "1",
   },
   "5": {
     id: 5,
     note: "This note has no tags",
     tags: [],
+    userId: "1",
   },
 };
 
 export class InMemRepository implements IRepository {
-  async findAll(): Promise<Note[]> {
-    return Object.values(notes);
+  async findAll(userId: string): Promise<Note[]> {
+    return Object.values(notes).filter((note) => note.userId === userId);
   }
 
-  async findOne(id: string): Promise<Note> {
+  async findOne(userId: string, id: string): Promise<Note> {
     const note = notes[id];
-    if (note) {
+    if (note && note.userId === userId) {
       return note;
     }
     throw new Error("No record found");
   }
 
-  async findByTag(tag: string): Promise<Note[]> {
+  async findByTag(userId: string, tag: string): Promise<Note[]> {
     const allNotes = Object.values(notes);
     return allNotes.filter((note) => {
-      return note.tags.includes(tag);
+      return note.tags.includes(tag) && note.userId === userId;
     });
   }
 
-  async findAllTags(): Promise<string[]> {
-    const allNotes = Object.values(notes);
+  async findAllTags(userId: string): Promise<string[]> {
+    const allNotes = await this.findAll(userId);
     const tags = allNotes.reduce((acc: string[], note: Note) => {
       return [...acc, ...note.tags];
     }, []);
