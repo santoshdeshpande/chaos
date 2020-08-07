@@ -2,11 +2,14 @@ import express, { Request, Response } from "express";
 import { NotesService } from "./service";
 import { InMemRepository } from "./inmem-repo";
 import { Note } from "./note";
+import { authMiddleware } from "../middleware/verify";
 
 export const notesRouter = express.Router();
 
 const repo = new InMemRepository();
 const service = new NotesService(repo);
+
+notesRouter.use(authMiddleware);
 
 notesRouter.get("/", async (req: Request, res: Response) => {
   try {
