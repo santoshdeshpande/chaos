@@ -6,6 +6,7 @@ import { notesRouter } from "./notes/endpoint";
 import { userRouter } from "./account/endpoint";
 import { errorHandler } from "./middleware/error";
 import { notFoundHandler } from "./middleware/not-found";
+import { createConnection } from "typeorm";
 
 dotenv.config();
 
@@ -25,6 +26,10 @@ app.use("/accounts", userRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
+
+const connection = createConnection().then((connection) => {
+  // console.log(connection);
+});
 
 const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

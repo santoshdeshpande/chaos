@@ -16,7 +16,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.0.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.3.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

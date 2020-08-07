@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "chaos",
+  "password": "chaos",
+  "database": "chaos_dev",
+  "entities": [
+    "src/account/user.ts"
+  ],
+  "synchronize": true,
+  "logging": true
+}

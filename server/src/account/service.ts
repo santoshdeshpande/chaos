@@ -56,18 +56,16 @@ export class UserService {
       throw new UserExistsException(user.email);
     }
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    let newUser = {
-      name: user.name,
-      email: user.email,
+
+    let newUser: UserDTO = {
+      ...user,
       password: hashedPassword,
-      id: user.email,
     };
     return this.repo.create(newUser);
   }
 
   async login(creds: LoginDTO): Promise<string> {
     const existingUser = await this.repo.findByEmail(creds.email);
-    console.log("Existing user", existingUser);
     if (!existingUser) {
       throw new AuthenticationException();
     }

@@ -1,5 +1,8 @@
+import { getRepository } from "typeorm";
+
 import { Users, User } from "./user";
 import { UserRepository } from "./repo";
+import { UserDTO } from "./service";
 
 const users: Users = {
   "1": {
@@ -11,8 +14,9 @@ const users: Users = {
 };
 
 export class InMemUserRepository implements UserRepository {
-  async create(user: User): Promise<User> {
+  async create(user: UserDTO): Promise<User> {
     const id = `${new Date().valueOf()}`;
+    delete user.confirmPassword;
     const newUser: User = {
       ...user,
       id,
