@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express";
-import { NotesService } from "./service";
+import { NotesService, NoteDTO } from "./service";
 import { InMemRepository } from "./inmem-repo";
 import { Note } from "./note";
 import { authMiddleware } from "../middleware/verify";
 import { User } from "../account/user";
+import { NoteRepository } from "./pg-repo";
 
 export const notesRouter = express.Router();
 
-const repo = new InMemRepository();
+const repo = new NoteRepository();
 const service = new NotesService(repo);
 
 notesRouter.use(authMiddleware);
@@ -35,10 +36,14 @@ notesRouter.get("/tags", async (req: Request, res: Response) => {
 notesRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.currentUser as User;
-    const note: Note = await service.findOne(id, req.params.id);
-    res.status(200).send(note);
+    const note = await service.findOne(id, req.params.id);
+    if (note) {
+      res.status(200).send(note);
+    } else {
+      res.status(404).send({ message: `Could not find the note for id ${id}` });
+    }
   } catch (e) {
-    res.status(404).send(e.message);
+    res.status(404).send({ message: e.message });
   }
 });
 
@@ -55,8 +60,8 @@ notesRouter.get("/search/:tag", async (req: Request, res: Response) => {
 notesRouter.post("/", async (req: Request, res: Response) => {
   try {
     const note: Note = req.body.note;
-    const { id } = req.currentUser as User;
-    note.userId = id;
+    const user = req.currentUser as User;
+    note.user = user;
     const createdNote: Note = await service.createNote(note);
     res.status(201).send(createdNote);
   } catch (e) {

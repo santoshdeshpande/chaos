@@ -1,0 +1,7 @@
+apps:
+  - script: ./build/index.js
+    name: 'api-app'
+    instances: 1
+    exec_mode: cluster
+    env:
+        NODE_ENV: production

@@ -22,6 +22,10 @@ export interface Claims {
   email: string;
 }
 
+export interface Token {
+  token: string;
+}
+
 export class UserExistsException extends HttpException {
   constructor(email: string) {
     super(400, `User with email ${email} already exists`);
@@ -64,7 +68,7 @@ export class UserService {
     return this.repo.create(newUser);
   }
 
-  async login(creds: LoginDTO): Promise<string> {
+  async login(creds: LoginDTO): Promise<Token> {
     const existingUser = await this.repo.findByEmail(creds.email);
     if (!existingUser) {
       throw new AuthenticationException();
@@ -78,7 +82,7 @@ export class UserService {
         id: existingUser.id,
         email: existingUser.email,
       };
-      return generateToken(claims);
+      return { token: generateToken(claims) };
     }
     throw new AuthenticationException();
   }

@@ -8,7 +8,7 @@ interface Writer {
 
 interface Reader {
   findAll(userId: string): Promise<Note[]>;
-  findOne(userId: string, id: string): Promise<Note>;
+  findOne(userId: string, id: string): Promise<Note | undefined>;
   findByTag(userId: string, tag: string): Promise<Note[]>;
   findAllTags(userId: string): Promise<string[]>;
 }

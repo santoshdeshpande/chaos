@@ -12,9 +12,11 @@
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es5", "es6", "DOM"] ,
+    "lib": ["es5", "es6", "DOM", "ES2017"] ,
     "moduleResolution": "node",
     "strictPropertyInitialization":false,
-    "outDir": "./build"
+    "outDir": "./build",
+    "rootDir": "src",
+    "sourceMap": true
   }
 }
