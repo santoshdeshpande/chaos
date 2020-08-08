@@ -2,6 +2,8 @@ import * as dotenv from "dotenv";
 import helmet from "helmet";
 import cors from "cors";
 import express from "express";
+import morgan from "morgan";
+
 import { notesRouter } from "./notes/endpoint";
 import { userRouter } from "./account/endpoint";
 import { errorHandler } from "./middleware/error";
@@ -22,6 +24,7 @@ const PORT: number = parseInt(process.env.PORT as string, 10);
 const app = express();
 app.use(helmet());
 app.use(cors());
+app.use(morgan("combined"));
 app.use(express.json());
 app.use("/notes", notesRouter);
 app.use("/accounts", userRouter);
