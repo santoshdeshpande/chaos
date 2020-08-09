@@ -1,7 +1,7 @@
 apps:
   - script: ./build/index.js
     name: 'api-app'
-    instances: 1
+    instances: 4
     merge_logs: true
     exec_mode: cluster
     max_memory_restart: "200M"

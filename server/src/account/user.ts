@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -12,6 +18,12 @@ export class User {
 
   @Column("text")
   password: string;
+
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: string;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: string;
 }
 
 export interface Users {

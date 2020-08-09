@@ -9,6 +9,7 @@ services:
       - DB_HOST=db
     depends_on:
       - db
+      - smtp
     networks:
       - default
   db:
@@ -36,6 +37,8 @@ services:
       test: echo | telnet 127.0.0.1 25
     networks:
       - default
+    depends_on:
+      - db
 
 volumes:
   db-data:

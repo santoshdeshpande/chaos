@@ -21,10 +21,18 @@ if (!process.env.PORT) {
 
 const PORT: number = parseInt(process.env.PORT as string, 10);
 
+morgan.token("pid", () => {
+  return `${process.pid}`;
+});
+
 const app = express();
 app.use(helmet());
 app.use(cors());
-app.use(morgan("combined"));
+app.use(
+  morgan(
+    ":pid :method :url :status :res[content-length] - :response-time ms :user-agent :date[iso]"
+  )
+);
 app.use(express.json());
 app.use("/notes", notesRouter);
 app.use("/accounts", userRouter);
@@ -34,7 +42,7 @@ app.use(errorHandler);
 app.use(notFoundHandler);
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_DEBUG } = process.env;
-const logging = DB_DATABASE === "true";
+const logging = DB_DEBUG === "true";
 const connection = createConnection({
   type: "postgres",
   host: DB_HOST,

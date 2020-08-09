@@ -4,6 +4,8 @@ import {
   Column,
   ManyToOne,
   Index,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "../account/user";
 
@@ -22,6 +24,12 @@ export class Note {
   @Index()
   @ManyToOne((type) => User)
   user: User;
+
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
 }
 
 export interface Notes {
