@@ -4,14 +4,7 @@ import { Users, User } from "./user";
 import { UserRepository } from "./repo";
 import { UserDTO } from "./service";
 
-const users: Users = {
-  "1": {
-    id: "1",
-    name: "Santosh Suresh",
-    email: "santoshdeshpande@gmail.com",
-    password: "pass123",
-  },
-};
+const users: Users = {};
 
 export class InMemUserRepository implements UserRepository {
   async create(user: UserDTO): Promise<User> {
@@ -20,6 +13,8 @@ export class InMemUserRepository implements UserRepository {
     const newUser: User = {
       ...user,
       id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
     users[id] = newUser;
     return newUser;
