@@ -7,7 +7,7 @@
     "dev:debug": "nodemon --inspect=0.0.0.0:9229 src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "rimraf ./build && tsc",
-    "start": "yarn build && npx pm2-runtime start pm2.yaml"
+    "start": "npx pm2-runtime start pm2.yaml"
   },
   "keywords": [],
   "author": "",

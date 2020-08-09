@@ -30,6 +30,7 @@ app.use("/notes", notesRouter);
 app.use("/accounts", userRouter);
 
 app.use(errorHandler);
+
 app.use(notFoundHandler);
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_DEBUG } = process.env;
